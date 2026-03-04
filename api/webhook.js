@@ -46,10 +46,30 @@ module.exports = async function webhook(req, res) {
     // Store Config
     // =========================
     const storeConfig = {
-      EQ: { template: "ordar_confirmation", lang: "ar_EG", currency: "ريال سعودي", defaultCountry: "KSA" },
-      BZ: { template: "ordar_confirmation", lang: "ar_EG", currency: "ريال سعودي", defaultCountry: "KSA" },
-      GZ: { template: "ordar_confirmation", lang: "ar_EG", currency: "ريال سعودي", defaultCountry: "KSA" },
-      SH: { template: "ordar_confirmation", lang: "ar_EG", currency: "ريال سعودي", defaultCountry: "KSA" },
+      EQ: {
+        template: "order_confirmation",
+        lang: "ar",
+        currency: "ريال سعودي",
+        defaultCountry: "KSA",
+      },
+      BZ: {
+        template: "order_confirmation",
+        lang: "ar",
+        currency: "ريال سعودي",
+        defaultCountry: "KSA",
+      },
+      GZ: {
+        template: "order_confirmation",
+        lang: "ar",
+        currency: "ريال سعودي",
+        defaultCountry: "KSA",
+      },
+      SH: {
+        template: "order_confirmation",
+        lang: "ar",
+        currency: "ريال سعودي",
+        defaultCountry: "KSA",
+      },
     };
 
     const cfg = storeConfig[storeTag] || storeConfig.EQ;
@@ -86,6 +106,7 @@ module.exports = async function webhook(req, res) {
       if (raw.startsWith("07") && raw.length === 9)  return `+967${raw.substring(1)}`;
       if (raw.startsWith("07") && raw.length === 10) return `+962${raw.substring(1)}`;
 
+      // السعودية / الإمارات
       if (raw.startsWith("05") && raw.length === 10) {
         if (country === "UAE") return `+971${raw.substring(1)}`;
         return `+966${raw.substring(1)}`;
@@ -227,6 +248,9 @@ module.exports = async function webhook(req, res) {
       safeText(nationalAddressRaw) ||
       "غير متوفر (يرجى تزويدنا بالعنوان الوطني)";
 
+    // =========================
+    // ENV
+    // =========================
     const API_BASE_URL = process.env.SAAS_API_BASE_URL;
     const VENDOR_UID = process.env.SAAS_VENDOR_UID;
     const API_TOKEN = process.env.SAAS_API_TOKEN;
@@ -237,10 +261,13 @@ module.exports = async function webhook(req, res) {
       });
     }
 
+    // =========================
+    // Payload
+    // =========================
     const payload = {
       phone_number: digitsPhone,
-      template_name: "order_confirmation",
-      template_language: "ar",
+      template_name: cfg.template,       // ✅ order_confirmation
+      template_language: cfg.lang,       // ✅ ar
 
       field_1: safeText(customerName),
       field_2: safeText(storeTag === "SH" ? "SH" : `${orderId} (${storeTag})`),
