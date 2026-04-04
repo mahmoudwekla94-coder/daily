@@ -47,25 +47,25 @@ module.exports = async function webhook(req, res) {
     // =========================
     const storeConfig = {
       EQ: {
-        template: "order_confirmation",
+        template: "t_utillty",
         lang: "ar",
         currency: "ريال سعودي",
         defaultCountry: "KSA",
       },
       BZ: {
-        template: "order_confirmation",
+        template: "t_utillty",
         lang: "ar",
         currency: "ريال سعودي",
         defaultCountry: "KSA",
       },
       GZ: {
-        template: "order_confirmation",
+        template: "t_utillty",
         lang: "ar",
         currency: "ريال سعودي",
         defaultCountry: "KSA",
       },
       SH: {
-        template: "order_confirmation",
+        template: "t_utillty",
         lang: "ar",
         currency: "ريال سعودي",
         defaultCountry: "KSA",
@@ -93,8 +93,8 @@ module.exports = async function webhook(req, res) {
       let raw = String(phone).replace(/[^0-9]/g, "");
 
       const knownCodes = [
-        "966","971","20","249","967","962","965","974","973","968",
-        "964","212","213","216","218","970","961","963","222"
+        "966", "971", "20", "249", "967", "962", "965", "974", "973", "968",
+        "964", "212", "213", "216", "218", "970", "961", "963", "222"
       ];
 
       for (const code of knownCodes) {
@@ -103,7 +103,7 @@ module.exports = async function webhook(req, res) {
 
       if (raw.startsWith("01") && raw.length === 11) return `+20${raw.substring(1)}`;
       if (raw.startsWith("09") && raw.length === 10) return `+249${raw.substring(1)}`;
-      if (raw.startsWith("07") && raw.length === 9)  return `+967${raw.substring(1)}`;
+      if (raw.startsWith("07") && raw.length === 9) return `+967${raw.substring(1)}`;
       if (raw.startsWith("07") && raw.length === 10) return `+962${raw.substring(1)}`;
 
       // السعودية / الإمارات
@@ -266,7 +266,7 @@ module.exports = async function webhook(req, res) {
     // =========================
     const payload = {
       phone_number: digitsPhone,
-      template_name: cfg.template,       // ✅ order_confirmation
+      template_name: cfg.template,       // ✅ t_utillty
       template_language: cfg.lang,       // ✅ ar
 
       field_1: safeText(customerName),
