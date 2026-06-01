@@ -45,33 +45,32 @@ module.exports = async function webhook(req, res) {
     // =========================
     // Store Config
     // =========================
-  const storeConfig = {
+const storeConfig = {
   EQ: {
-    template: "confirmation_order",
+    template: "confirmation",
     lang: "en",
     currency: "ريال سعودي",
     defaultCountry: "KSA",
   },
   BZ: {
-    template: "confirmation_order",
+    template: "confirmation",
     lang: "en",
     currency: "ريال سعودي",
     defaultCountry: "KSA",
   },
   GZ: {
-    template: "confirmation_order",
+    template: "confirmation",
     lang: "en",
     currency: "ريال سعودي",
     defaultCountry: "KSA",
   },
   SH: {
-    template: "confirmation_order",
+    template: "confirmation",
     lang: "en",
     currency: "ريال سعودي",
     defaultCountry: "KSA",
   },
 };
-
     const cfg = storeConfig[storeTag] || storeConfig.EQ;
 
     // =========================
